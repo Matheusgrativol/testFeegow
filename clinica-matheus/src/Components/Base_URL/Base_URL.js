@@ -1,0 +1,1 @@
+export const Base_URL = "https://demo4450529.mockable.io/feegow-challenge"
