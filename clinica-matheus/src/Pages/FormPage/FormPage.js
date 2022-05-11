@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { Base_URL } from "../../Components/Base_URL/Base_URL";
-import { Form, H2Form, InputForm, InputFormCpf, SelectForm } from "./styled";
+import { ContainerForm, Form, H2Form, InputForm, InputFormCpf, SelectForm } from "./styled";
 import Button from '@mui/material/Button';
 
 
@@ -13,12 +13,16 @@ const ListPage = () => {
     const [nameUser, setNameUser] = useState("")
     const [birthdateUser, setBirthdateUser] = useState("")
     const [cpfUser, setCpfUser] = useState("")
-    // const [formStorage , setFormStorage] = useState([])
+    const [spec, setSpec] = useState()
+    const [profissionais, setProfissionais] = useState()
+
 
     let id = useParams()
 
     useEffect(() => {
         getSources()
+        getSpecs()
+        getProfi()
     }, [])
 
     const changeSource = event => {
@@ -47,12 +51,47 @@ const ListPage = () => {
             })
     }
 
-    
+    const getSpecs = () => {
+        axios.get(`${Base_URL}/specialties/list`)
+            .then((res) => {
+                setSpec(res.data.content)
+            })
+            .catch((err) => {
+                alert(err)
+            })
+    }
+
+    const getProfi = () => {
+        axios.get(`${Base_URL}/professionals/list`)
+            .then((res) => {
+                setProfissionais(res.data.content)
+            })
+            .catch((err) => {
+                alert(err)
+            })
+    }
+
+
+    const getProfissional = (id)=>{
+        const profiFind = profissionais.find((prof)=>{
+            return +prof.profissional_id === +id
+            
+        })
+        return profiFind?.nome
+    }
+
+    const getEspecialidade = (id)=>{
+        const specFind = spec.find((name)=>{
+            return +name.especialidade_id === +id
+        })
+        return specFind?.nome
+    }
 
     const getStorage = () => {
         return JSON.parse(localStorage.getItem("dado")) || []
     }
 
+    
     const saveForm = (event) => {
         event.preventDefault()
         const formUser = {
@@ -64,12 +103,21 @@ const ListPage = () => {
             birthdate: birthdateUser,
             date_time: new Date().toISOString()
         }
-        if(!formUser.name || !formUser.cpf || !formUser.source_id || !formUser.birthdate){
+        if (!formUser.name || !formUser.cpf || !formUser.source_id || !formUser.birthdate) {
             return alert("Preencha os campos corretamente")
         }
         const storages = getStorage()
         storages.push(formUser)
         localStorage.setItem("dado", `${JSON.stringify(storages)}`)
+    }
+
+    const localList = getStorage()
+
+    const getSource = (id)=>{
+        const sourceFind = sources.find((source)=>{
+            return +source.origem_id === +id
+        })
+        return sourceFind?.nome_origem
     }
 
     return (
@@ -83,8 +131,8 @@ const ListPage = () => {
                         placeholder="Nome completo"
                         type={"text"}
                     />
-                    <SelectForm onChange={changeSource} required>
-                        <option value={""}>Como conheceu?</option>
+                    <SelectForm onChange={changeSource}>
+                        <option disabled selected value={""}>Como conheceu?</option>
                         {sources.map((source) => {
                             return (
                                 <option key={source.origem_id} value={source.origem_id}>
@@ -109,9 +157,33 @@ const ListPage = () => {
                 </Form>
             </div>
 
-            <div>
-
-            </div>
+            <ContainerForm>
+                {!localList.length? <p>Não existe consulta agendada</p> : 
+                <table border="1">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Data de Nascimento</th>
+                        <th>CPF</th>
+                        <th>Especialidade</th>
+                        <th>Profissional</th>
+                        <th>Origem</th>
+                    </tr>
+                    <tbody>
+                        {profissionais && spec && localList.map((user) => {
+                            return (
+                                <tr>
+                                    <td>{user.name}</td>
+                                    <td>{user.birthdate}</td>
+                                    <td>{user.cpf}</td>
+                                    <td>{getEspecialidade(user.specialty_id)}</td>
+                                    <td>{getProfissional(user.professional_id)}</td>
+                                    <td>{getSource(user.source_id)}</td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>}
+            </ContainerForm>
         </div>
     )
 }

@@ -21,7 +21,6 @@ const HomePage = () => {
 
     const goToForm = (specialty_id , professional_id) => {
         window.location = `/formPage/${specialty_id}/${professional_id}`
-        // history.push(`/formPage/${id}`)
     }
 
     const getSpecs = () => {
@@ -67,7 +66,7 @@ const HomePage = () => {
             <ContainerSelect>
                 <h3>Consulta de </h3>
                 <SelectEspecialidades onChange={changeId}>
-                    <option value={""}>Selecione a especialidade</option>
+                    <option value={""} disabled selected>Selecione a especialidade</option>
                     {spec && spec.map((especialidade) => {
                         return (
                             <option key={especialidade.especialidade_id} value={especialidade.especialidade_id}>
@@ -94,8 +93,6 @@ const HomePage = () => {
                     )
                 })}
             </DivProfPai>
-            <div>
-            </div>
         </ContainerPai>
     )
 }

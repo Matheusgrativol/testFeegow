@@ -42,3 +42,14 @@ export const SelectForm = styled.select`
 export const H2Form = styled.h2`
     text-align: center;
 `
+
+export const ContainerForm = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 1rem;
+`
+export const TableConsulta = styled.table`
+    border: solid red;
+`
