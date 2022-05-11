@@ -35,7 +35,8 @@ export const DivProf = styled.div`
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    border: solid #4359c8;
+    border: solid #2b4fe273;
+    border-radius: 10px;
     margin: 20px;
     padding: 10px;
 `
@@ -44,7 +45,4 @@ export const DivProfPai = styled.div`
     display: grid;
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr 1fr ;
-    /* justify-content: center;
-    align-items: center;
-    margin-bottom: 5px; */
 `

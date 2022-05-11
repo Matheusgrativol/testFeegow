@@ -1,18 +1,18 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import ErrorPage from "../ErrorPage/ErrorPage";
 import HomePage from "../HomePage/HomePage";
-import ListPage from "../ListPage/ListPage";
+import FormPage from "../FormPage/FormPage";
 
 
-export const Router = () => {
+const Router = () => {
     return (
         <BrowserRouter>
             <Switch>
                 <Route exact path="/">
                     <HomePage />
                 </Route>
-                <Route exact path="/listPage">
-                    <ListPage />
+                <Route exact path="/formPage/:specialty_id/:professional_id">
+                    <FormPage />
                 </Route>
                 <Route>
                     <ErrorPage />
@@ -21,3 +21,5 @@ export const Router = () => {
         </BrowserRouter>
     )
 }
+
+export default Router
