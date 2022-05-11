@@ -21,7 +21,30 @@ export const ContainerSelect = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: whitesmoke;
     padding: 20px;
     border-radius: 5px;
+`
+
+export const ImgProf = styled.img`
+    width: 50px;
+    margin: 10px;
+`
+
+export const DivProf = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border: solid #4359c8;
+    margin: 20px;
+    padding: 10px;
+`
+
+export const DivProfPai = styled.div`
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr ;
+    /* justify-content: center;
+    align-items: center;
+    margin-bottom: 5px; */
 `

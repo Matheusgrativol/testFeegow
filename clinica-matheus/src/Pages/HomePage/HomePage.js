@@ -3,19 +3,25 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import { Base_URL } from "../../Components/Base_URL/Base_URL";
-import { ContainerPai, ContainerSelect, SelectEspecialidades } from "./styled";
+import { ContainerPai, ContainerSelect, DivNameProf, DivProf, DivProfPai, ImgProf, SelectEspecialidades } from "./styled";
+
+import Avatar from '@mui/material/Avatar'
+import Button from '@mui/material/Button';
+
+
 const HomePage = () => {
 
     const [spec, setSpec] = useState()
-    const [specName, setSpecName] = useState()
-    const [proficionais, setProficionais] = useState([])
-    // const [mapProficionais, setMapProficionais] = useState()
+    const [specId, setSpecId] = useState()
+    const [profissionais, setProfissionais] = useState([])
+    const [sources, setSources] = useState([])
     const history = useHistory()
 
     useEffect(() => {
         getSpecs()
         getProfi()
-    }, [specName])
+        getSources()
+    }, [specId])
 
 
     const goToList = () => {
@@ -35,31 +41,61 @@ const HomePage = () => {
     const getProfi = () => {
         axios.get(`${Base_URL}/professional/list`)
             .then((res) => {
-                setProficionais(res.data.content)
+                setProfissionais(res.data.content)
             })
             .catch((err) => {
                 alert(err)
             })
     }
 
-    const prof = proficionais.map((proficionais) => {
-        return (
-            proficionais.especialidades
-        )
+    const getSources = () => {
+        axios.get(`${Base_URL}/patient/list-sources`)
+            .then((res) => {
+                setSources(res.data.content)
+            })
+            .catch((err) => {
+                alert(err)
+            })
+    }
+
+    console.log(profissionais)
+
+
+    const profs = profissionais.filter((profissional) => {
+        if (!specId) {
+            return false
+        }
+        const especialidade = profissional.especialidades.find((especialidade) => {
+            return especialidade.especialidade_id == specId
+        })
+        if (especialidade) {
+            return true
+        } else {
+            return false
+        }
     })
 
-    console.log(prof)
+
+    console.log(profs)
     // console.log(prof)
     // console.log(filterEspec)
 
     // console.log(proficionais)
-    // console.log(specName)
-    const changeName = event => {
-        setSpecName(event.target.value)
+    console.log(specId)
+    const changeId = event => {
+        setSpecId(event.target.value)
     };
 
+    const changeSource = (event) => {
+        setSources(event.target.value)
+    }
 
-    
+    const renderProfs = profs.map((prof) => {
+        return (
+            <h4>prof.na</h4>
+        )
+    })
+
     return (
         <ContainerPai>
             <div>
@@ -67,7 +103,8 @@ const HomePage = () => {
             </div>
             <ContainerSelect>
                 <h3>Consulta de </h3>
-                <SelectEspecialidades onChange={changeName} placeholder={"Selecione a especialidade"}>
+                <SelectEspecialidades onChange={changeId}>
+                    <option value={""}>Selecione a especialidade</option>
                     {spec && spec.map((especialidade) => {
                         return (
                             <option key={especialidade.especialidade_id} value={especialidade.especialidade_id}>
@@ -78,7 +115,21 @@ const HomePage = () => {
                 </SelectEspecialidades>
             </ContainerSelect>
 
-            <h1>HomePage</h1>
+            <DivProfPai>
+                {profs.map((prof) => {
+                    return (
+                        <DivProf>
+                            <h4> {prof.tratamento} {prof.nome} </h4>
+                            <Avatar src={prof.foto} />
+                            <p>{prof.documento_conselho}</p>
+                            <Button variant="contained" color="success">Agendar</Button>
+                        </DivProf>
+                    )
+                })}
+            </DivProfPai>
+
+            <div>
+            </div>
         </ContainerPai>
     )
 }
