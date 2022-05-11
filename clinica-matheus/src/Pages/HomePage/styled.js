@@ -2,6 +2,7 @@ import styled from "styled-components"
 
 export const SelectEspecialidades = styled.select`
     border-radius: 5px;
+    border: solid #2b4fe273;
     color: blueviolet;
     text-align: center;
     margin: 10px;
@@ -14,7 +15,6 @@ export const ContainerPai = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* background-color: whitesmoke; */
 `
 
 export const ContainerSelect = styled.div`
@@ -37,6 +37,7 @@ export const DivProf = styled.div`
     align-items: center;
     border: solid #2b4fe273;
     border-radius: 10px;
+    box-shadow: 4px 4px 4px silver;
     margin: 20px;
     padding: 10px;
 `
