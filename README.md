@@ -6,7 +6,7 @@ Teste técnico para a Feegow: Aplicação com o intuito de criar uma página de 
   
   ## 💻 Tecnologias usadas
   
-O Teste foi desenvolvido em React.js, usando HTMl, CSS e JavaScript.<br/>
+O Teste foi desenvolvido em React.js, usando HTML, CSS e JavaScript.<br/>
 Para a estilização usei a Biblioteca styled components e o material ui.<br/>
 Para as requisições usei a Biblioteca Axios.<br/>
 Para as rotas usei o react-router-dom 5.2.0.<br/>
