@@ -33,6 +33,7 @@ GitHub para armazenamento<br/>
 
 <h4> Clicando em solicitar horários salva as informações no localStorage e atualizando a tela aparece uma tabela com as solicitações. </h4>
 
+<div align="center"><img src= "https://user-images.githubusercontent.com/80927630/168187887-2558084e-affd-4930-b542-4a32c7232620.png"> </div>
 
  ## 💻 Rodando o Teste
  
